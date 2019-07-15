@@ -9,4 +9,11 @@ connection.once('open', () => {
     console.log('connected to MongoDB');
 });
 
-app.listen(4000, () => console.log('Server running on port 4000'));
+app.use(morgan('dev'));
+var users= require('./routes/user');
+app.use('/v1/users',users);
+
+var erroMessages= require('./controllers/errorController');
+app.use(erroMessages);
+
+app.listen(3000, () => console.log('Server running on port 3000'));
