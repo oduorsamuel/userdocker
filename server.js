@@ -3,11 +3,13 @@ const mongoose = require('mongoose')
 const app = express();
 const morgan = require('morgan');
 
-mongoose.connect('mongodb://localhost:27017/dockerusers', { useNewUrlParser: true });
-const connection = mongoose.connection;
-connection.once('open', () => {
-    console.log('connected to MongoDB');
-});
+mongoose
+  .connect(
+    'mongodb://mongo:27017/docker-users',
+    { useNewUrlParser: true }
+  )
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
 
 app.use(morgan('dev'));
 var users= require('./routes/user');
